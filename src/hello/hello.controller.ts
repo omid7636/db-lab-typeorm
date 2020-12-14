@@ -9,7 +9,7 @@ export class HelloController {
 
   @Post('welcome')
   @Header('Content-Type', 'application/json')
-  @ApiResponse({ status: 200, description: 'Say Hello!!!' })
+  @ApiResponse({ status: 201, description: 'Say Hello!!!' })
   async sayWelcome(@Body() personDto: PersonDto): Promise<{ data: String }> {
     const data = await this.helloService.welcome(personDto)
     return { data }
