@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Body, Header } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Header,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common'
 import { BookService } from './book.service'
 import { CreateBookDto } from './dto/create-book.dto'
 import { ApiResponse } from '@nestjs/swagger'
 import { Book } from './entities/book.entity'
+import { UpdateBookDto } from './dto/update-book.dto'
 
 @Controller('book')
 export class BookController {
@@ -23,5 +33,22 @@ export class BookController {
   @ApiResponse({ status: 200, type: [Book] })
   findAll() {
     return this.bookService.findAll()
+  }
+
+  @Put(':id')
+  @ApiResponse({
+    status: 200,
+    type: Book,
+    description: 'The book updated successfully.',
+  })
+  update(@Param('id') id: number, @Body() updateBookDto: UpdateBookDto) {
+    return this.bookService.update(id, updateBookDto)
+  }
+
+  @Delete(':id')
+  @ApiResponse({ status: 200, type: Number, description: 'Id of deleted book' })
+  async remove(@Param('id') id: number) {
+    await this.bookService.remove(id)
+    return id
   }
 }

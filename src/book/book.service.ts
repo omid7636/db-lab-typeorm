@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { User } from '../user/entities/user.entity'
 import { Repository } from 'typeorm'
 import { Genre } from '../genre/entities/genre.entity'
+import { UpdateBookDto } from './dto/update-book.dto'
 
 @Injectable()
 export class BookService {
@@ -27,5 +28,25 @@ export class BookService {
 
   findAll(): Promise<Book[]> {
     return this.bookRepository.find()
+  }
+
+  async update(id: number, updateBookDto: UpdateBookDto): Promise<Book> {
+    const { userId, name, genreIds } = updateBookDto
+
+    const partialEntry = {
+      ...(name && { name }),
+      ...(userId && { user: await this.usersRepository.findOne(userId) }),
+      ...(genreIds && {
+        genres: await this.genreRepository.findByIds(genreIds),
+      }),
+    }
+
+    await this.bookRepository.update({ id }, partialEntry)
+
+    return this.bookRepository.findOne(id)
+  }
+
+  async remove(id: number) {
+    await this.bookRepository.delete(id)
   }
 }
