@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { User } from './user/entities/user.entity'
 import { Book } from './book/entities/book.entity'
 import { Genre } from './genre/entities/genre.entity'
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { Genre } from './genre/entities/genre.entity'
     UserModule,
     TypeOrmModule.forFeature([User, Book, Genre]),
     TypeOrmModule.forRoot(),
+    AuthModule,
   ],
   controllers: [],
   providers: [],

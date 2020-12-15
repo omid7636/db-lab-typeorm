@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Header, Query } from '@nestjs/common'
 import { HelloService } from './hello.service'
 import { PersonDto } from './dto/person.dto'
 import { ApiQuery, ApiResponse } from '@nestjs/swagger'
+import { Public } from '../auth/decorators/public.decorator'
 
 @Controller('hello')
 export class HelloController {
   constructor(private readonly helloService: HelloService) {}
 
+  @Public()
   @Post('welcome')
   @Header('Content-Type', 'application/json')
   @ApiResponse({ status: 201, description: 'Say Hello!!!' })
@@ -15,6 +17,7 @@ export class HelloController {
     return { data }
   }
 
+  @Public()
   @Get('welcome')
   @ApiResponse({ status: 200 })
   @ApiQuery({

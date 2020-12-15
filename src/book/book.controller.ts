@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common'
 import { BookService } from './book.service'
 import { CreateBookDto } from './dto/create-book.dto'
-import { ApiResponse } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger'
 import { Book } from './entities/book.entity'
 import { UpdateBookDto } from './dto/update-book.dto'
 
+@ApiBearerAuth()
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}

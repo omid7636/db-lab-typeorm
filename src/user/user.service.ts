@@ -12,13 +12,16 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const { name, password, username } = createUserDto
     const user = new User()
-    user.name = createUserDto.name
+    user.name = name
+    user.username = username
+    user.password = password
     return this.usersRepository.save(user)
   }
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find()
+    return this.usersRepository.find({ select: ['name', 'username', 'id'] })
   }
 
   async findUserBooks(id: number): Promise<Book[]> {
@@ -27,5 +30,9 @@ export class UserService {
     })
 
     return books
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    return this.usersRepository.findOne({ username })
   }
 }

@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Body, Header } from '@nestjs/common'
 import { GenreService } from './genre.service'
 import { CreateGenreDto } from './dto/create-genre.dto'
-import { ApiResponse } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger'
 import { Genre } from './entities/genre.entity'
 
+@ApiBearerAuth()
 @Controller('genre')
 export class GenreController {
   constructor(private readonly genreService: GenreService) {}

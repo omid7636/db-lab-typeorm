@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription("Our Awesome App's Documentation")
     .setVersion('0.0.1')
     .addTag('App')
+    .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, options)
