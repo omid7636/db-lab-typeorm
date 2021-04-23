@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import { Book } from '../../book/entities/book.entity'
+import { Todo } from '../../todo/entities/todo.entity'
 
 @Entity()
 export class User {
@@ -15,7 +15,6 @@ export class User {
   @Column({ length: 500 })
   password: string
 
-  // 1:n relation with bookEntity
-  @OneToMany(() => Book, book => book.user)
-  books: Book[]
+  @OneToMany(() => Todo, todo => todo.user)
+  todos: Todo[]
 }

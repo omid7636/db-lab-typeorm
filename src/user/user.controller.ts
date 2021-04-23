@@ -2,9 +2,9 @@ import { Controller, Get, Post, Body, Param, Header } from '@nestjs/common'
 import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger'
-import { Book } from '../book/entities/book.entity'
 import { User } from './entities/user.entity'
 import { Public } from '../auth/decorators/public.decorator'
+import { Todo } from '../todo/entities/todo.entity'
 
 @Controller('user')
 export class UserController {
@@ -30,9 +30,9 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Get(':id/book')
-  @ApiResponse({ status: 200, type: [Book] })
-  findOne(@Param('id') id: number) {
-    return this.userService.findUserBooks(id)
+  @Get(':id/todo')
+  @ApiResponse({ status: 200, type: [Todo] })
+  findUserTodos(@Param('id') id: number) {
+    return this.userService.findUserTodos(id)
   }
 }

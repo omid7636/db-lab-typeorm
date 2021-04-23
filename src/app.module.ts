@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common'
 import { HelloModule } from './hello/hello.module'
-import { GenreModule } from './genre/genre.module'
-import { BookModule } from './book/book.module'
 import { UserModule } from './user/user.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { User } from './user/entities/user.entity'
-import { Book } from './book/entities/book.entity'
-import { Genre } from './genre/entities/genre.entity'
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module'
+import { TodoModule } from './todo/todo.module'
+import { Tag } from './todo/entities/tag.entity'
+import { Todo } from './todo/entities/todo.entity'
+import { Item } from './todo/entities/item.entity'
+import { Category } from './todo/entities/category.entity'
 
 @Module({
   imports: [
     HelloModule,
-    GenreModule,
-    BookModule,
     UserModule,
-    TypeOrmModule.forFeature([User, Book, Genre]),
+    TypeOrmModule.forFeature([User, Tag, Todo, Item, Category]),
     TypeOrmModule.forRoot(),
     AuthModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [],
